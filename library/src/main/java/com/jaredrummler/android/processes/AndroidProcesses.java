@@ -97,7 +97,7 @@ public class AndroidProcesses {
 
   private static final int AID_READPROC = 3009;
 
-  private static boolean loggingEnabled;
+  private static boolean loggingEnabled = true;
 
   /**
    * Toggle whether debug logging is enabled.
@@ -269,6 +269,8 @@ public class AndroidProcesses {
           log(e, "Error reading from /proc/%d.", pid);
           // System apps will not be readable on Android 5.0+ if SELinux is enforcing.
           // You will need root access or an elevated SELinux context to read all files under /proc.
+        } catch (Exception e) {
+          log(e, "Unknown error.", pid);
         }
       }
     }

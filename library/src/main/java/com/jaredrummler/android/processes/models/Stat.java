@@ -173,11 +173,20 @@ public final class Stat extends ProcFile {
     return new Stat(String.format(Locale.ENGLISH, "/proc/%d/stat", pid));
   }
 
-  private final String[] fields;
+  private String[] fields;
 
   private Stat(String path) throws IOException {
     super(path);
-    fields = content.split("\\s+");
+    try {
+      fields = content.split("\\s+");
+    } catch (Exception e) {
+      e.printStackTrace();
+      fields = new String[52];
+      for(int i = 0; i < fields.length; i++) {
+        fields[i] = "0";
+      }
+      fields[2] = "Z";
+    }
   }
 
   private Stat(Parcel in) {

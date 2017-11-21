@@ -46,6 +46,8 @@ public class ProcFile extends File implements Parcelable {
         newLine = "\n";
       }
       return output.toString();
+    } catch (Exception e) {
+      e.printStackTrace();
     } finally {
       if (reader != null) {
         try {
@@ -54,6 +56,7 @@ public class ProcFile extends File implements Parcelable {
         }
       }
     }
+    return "";
   }
 
   public final String content;
